@@ -1,6 +1,7 @@
 package server
 
 import (
+	"context"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -10,14 +11,35 @@ import (
 
 // Server handles HTTP requests
 type Server struct {
-	monitor *monitor.Monitor
+	monitor    *monitor.Monitor
+	httpServer *http.Server
 }
 
 // NewServer creates a new instance of the Server with its dependencies
-func NewServer(m *monitor.Monitor) *Server {
-	return &Server{
+func NewServer(m *monitor.Monitor, port string) *Server {
+	mux := http.NewServeMux()
+	
+	s := &Server{
 		monitor: m,
 	}
+	s.RegisterRoutes(mux)
+
+	s.httpServer = &http.Server{
+		Addr:    ":" + port,
+		Handler: mux,
+	}
+
+	return s
+}
+
+// Start runs the HTTP server
+func (s *Server) Start() error {
+	return s.httpServer.ListenAndServe()
+}
+
+// Shutdown gracefully stops the server
+func (s *Server) Shutdown(ctx context.Context) error {
+	return s.httpServer.Shutdown(ctx)
 }
 
 // RegisterRoutes sets up the routing for the server

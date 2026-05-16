@@ -5,6 +5,9 @@ services:
     build:
       context: .
       dockerfile: build/package/Dockerfile
+    environment:
+      - PORT=8080
+      - POLL_INTERVAL=5s
     ports:
       - "8080:8080"
     restart: unless-stopped
