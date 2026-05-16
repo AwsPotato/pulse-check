@@ -1,5 +1,9 @@
 # Pulse-Check
 
+![Go Version](https://img.shields.io/github/go-mod/go-version/AwsPotato/pulse-check)
+![License](https://img.shields.io/badge/license-MIT-blue)
+![Build Status](https://img.shields.io/github/actions/workflow/status/AwsPotato/pulse-check/ci.yml?branch=main)
+
 Pulse-Check is a lightweight, concurrent system monitoring agent written in Go. It collects CPU, Memory, and Disk metrics every 5 seconds and serves them via a fast, non-blocking HTTP endpoint.
 
 ## Features
