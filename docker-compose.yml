@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  pulse-check:
+    build:
+      context: .
+      dockerfile: build/package/Dockerfile
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
